@@ -41,11 +41,65 @@ ylim([0 1])
 %%
 close all; clc;
 [error_struct] = get_errors_wrt_all_datasets(We_D_analytical, B_analytical);
-outcome_names = [{'coalescence'},{'bounce'},{'separation'}];
-color = [{'r'},{'g'},{'b'}];
+outcome_names_qian    = [{'coalescence'},{'bounce'},{'separation'}];
+outcome_names_estrade = [{'coalescence'},{'bouncing'},{'separationAll'}];
+outcome_names_poo     = [{'coalescence'},{'stretching'},{'reflexive'}];
+marker_prop = [{'o'},{'s'},{'d'}];
+
+
+for i=1:3
+    figure()
+    hold on
+    scatter(qian.all.(outcome_names_qian{i}).x,          qian.all.(outcome_names_qian{i}).y,          40, ['r', marker_prop{i}], 'filled')
+    scatter(estrade.delta1.(outcome_names_estrade{i}).x, estrade.delta1.(outcome_names_estrade{i}).y, 40, ['g', marker_prop{i}], 'filled')
+    if i==3
+        scatter(poo.delta1.(outcome_names_poo{2}).x, poo.delta1.(outcome_names_poo{2}).y, 40, ['b', marker_prop{i}], 'filled')
+        scatter(poo.delta1.(outcome_names_poo{3}).x, poo.delta1.(outcome_names_poo{3}).y, 40, ['b', marker_prop{i}], 'filled')
+    end
+    an_1 = plot(C1_x, B_analytical,     'k', 'LineWidth', 1);
+    an_2 = plot(We_D_analytical, C3_y,  'k', 'LineWidth', 1);
+    an_3 = plot(C2_x, B_analytical,     'k', 'LineWidth', 1);
+    xlim([0 We_DLims])
+    ylim([0 1])
+end
+
+%%
+close all; clc;
+
 figure()
 hold on
-for i=1:length(outcome_names)
-    scatter(qian.all.(outcome_names{i}).x, qian.all.(outcome_names{i}).y, color{i})
+marker_color = [{'g'},{'r'},{'b'}];
+for i=1:3
+    scatter(qian.all.(outcome_names_qian{i}).x,          qian.all.(outcome_names_qian{i}).y,          40, [ marker_color{i}], 'filled')
 end
-%[error_table] = get_condensed_error_data(error_struct);
+an_1 = plot(C1_x, B_analytical,     'k', 'LineWidth', 1);
+an_2 = plot(We_D_analytical, C3_y,  'k', 'LineWidth', 1);
+an_3 = plot(C2_x, B_analytical,     'k', 'LineWidth', 1);
+xlim([0 We_DLims])
+ylim([0 1])
+
+
+figure()
+hold on
+marker_color = [{'g'},{'r'},{'b'}];
+for i=1:3
+    scatter(estrade.delta1.(outcome_names_estrade{i}).x, estrade.delta1.(outcome_names_estrade{i}).y, 40, [marker_color{i}], 'filled')
+end
+an_1 = plot(C1_x, B_analytical,     'k', 'LineWidth', 1);
+an_2 = plot(We_D_analytical, C3_y,  'k', 'LineWidth', 1);
+an_3 = plot(C2_x, B_analytical,     'k', 'LineWidth', 1);
+xlim([0 We_DLims])
+ylim([0 1])
+
+
+figure()
+hold on
+marker_color = [{'g'},{'r'},{'b'}];
+for i=1:3
+    scatter(poo.delta1.(outcome_names_poo{i}).x, poo.delta1.(outcome_names_poo{i}).y, 40, [ marker_color{i}], 'filled')
+end
+an_1 = plot(C1_x, B_analytical,     'k', 'LineWidth', 1);
+an_2 = plot(We_D_analytical, C3_y,  'k', 'LineWidth', 1);
+an_3 = plot(C2_x, B_analytical,     'k', 'LineWidth', 1);
+xlim([0 We_DLims])
+ylim([0 1])
