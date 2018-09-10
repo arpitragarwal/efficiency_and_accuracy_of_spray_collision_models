@@ -28,6 +28,16 @@ if (check_error_estrade)
     error_struct.estrade.delta1.separationAll.error = error;
     error_struct.estrade.delta1.separationAll.num   = num;
     
+    outcome_names = [{'coalescence'},{'bouncing'},{'separationAll'}];
+    error_struct.estrade.delta1.all.error = 0;
+    error_struct.estrade.delta1.all.num   = 0;
+    for i = 1:length(outcome_names)
+        error_struct.estrade.delta1.all.error = error_struct.estrade.delta1.all.error + ...
+            error_struct.estrade.delta1.(outcome_names{i}).error;
+        error_struct.estrade.delta1.all.num = error_struct.estrade.delta1.all.num + ...
+            error_struct.estrade.delta1.(outcome_names{i}).num;
+    end
+    
     delta = 0.5;
     expt_x = estrade.delta0p5.bouncing.x;
     expt_y = estrade.delta0p5.bouncing.y;
@@ -49,6 +59,20 @@ if (check_error_estrade)
     [error, num] = get_error_for_data_set(We_D_analytical, B_analytical, delta, expt_x, expt_y, expt_outcome);
     error_struct.estrade.delta0p5.separationAll.error = error;
     error_struct.estrade.delta0p5.separationAll.num   = num;
+    
+    error_struct.estrade.delta0p5.all.error = 0;
+    error_struct.estrade.delta0p5.all.num   = 0;
+    for i = 1:length(outcome_names)
+        error_struct.estrade.delta0p5.all.error = error_struct.estrade.delta0p5.all.error + ...
+            error_struct.estrade.delta0p5.(outcome_names{i}).error;
+        error_struct.estrade.delta0p5.all.num = error_struct.estrade.delta0p5.all.num + ...
+            error_struct.estrade.delta0p5.(outcome_names{i}).num;
+    end
+    
+    error_struct.estrade.all.error = error_struct.estrade.delta0p5.all.error + ...
+        error_struct.estrade.delta1.all.error;
+    error_struct.estrade.all.num = error_struct.estrade.delta0p5.all.num + ...
+        error_struct.estrade.delta1.all.num;
 end
 
 check_error_poo = 1;
@@ -118,6 +142,28 @@ if (check_error_poo)
     [error, num] = get_error_for_data_set(We_D_analytical, B_analytical, delta, expt_x, expt_y, expt_outcome);
     error_struct.poo.delta0p5.stretching.error = error;
     error_struct.poo.delta0p5.stretching.num   = num;
+    
+    outcome_names = [{'coalescence'},{'reflexive'},{'stretching'}];
+    delta_names = [{'delta0p5'},{'delta0p75'},{'delta1'}];
+    for j = 1:length(delta_names)
+        error_struct.poo.(delta_names{j}).all.error = 0;
+        error_struct.poo.(delta_names{j}).all.num   = 0;
+    end
+    for i = 1:length(outcome_names)
+        for j = 1:length(delta_names)
+            error_struct.poo.(delta_names{j}).all.error = error_struct.poo.(delta_names{j}).all.error + ...
+                error_struct.poo.(delta_names{j}).(outcome_names{i}).error;
+            error_struct.poo.(delta_names{j}).all.num = error_struct.poo.(delta_names{j}).all.num + ...
+                error_struct.poo.(delta_names{j}).(outcome_names{i}).num;
+        end
+    end
+    
+    error_struct.poo.all.error = 0;
+    error_struct.poo.all.num   = 0;
+    for j = 1:length(delta_names)
+        error_struct.poo.all.error = error_struct.poo.all.error + error_struct.poo.(delta_names{j}).all.error;
+        error_struct.poo.all.num   = error_struct.poo.all.num   + error_struct.poo.(delta_names{j}).all.num;
+    end
 end
 
 check_error_qian = 1;
@@ -416,6 +462,8 @@ if (check_error_qian)
     error_struct.qian.tetradecane.helium.four_p_four_atm.separation.num   = num;
     
     outcome_names = [{'coalescence'},{'bounce'},{'separation'}];
+    error_struct.qian.all.all.error = 0;
+    error_struct.qian.all.all.num   = 0;
     for i=1:length(outcome_names)
         expt_x = qian.all.(outcome_names{i}).x;
         expt_y = qian.all.(outcome_names{i}).y;
@@ -430,7 +478,13 @@ if (check_error_qian)
             get_error_for_data_set(We_D_analytical, B_analytical, delta, expt_x, expt_y, expt_outcome);
         error_struct.qian.all.(outcome_names{i}).error = error;
         error_struct.qian.all.(outcome_names{i}).num   = num;
+        
+        error_struct.qian.all.all.error = error_struct.qian.all.all.error + error_struct.qian.all.(outcome_names{i}).error;
+        error_struct.qian.all.all.num   = error_struct.qian.all.all.num   + error_struct.qian.all.(outcome_names{i}).num;
     end
 end
+
+error_struct.all.error = error_struct.estrade.all.error + error_struct.poo.all.error + error_struct.qian.all.all.error;
+error_struct.all.num   = error_struct.estrade.all.num   + error_struct.poo.all.num   + error_struct.qian.all.all.num;
 end
 
