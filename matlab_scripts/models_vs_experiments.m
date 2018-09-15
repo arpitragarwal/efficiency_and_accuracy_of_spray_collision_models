@@ -1,5 +1,6 @@
 clear; clc; close all;
 
+save_figs = false;
 We_DLims = 250;
 resolution = 200;
 We_D_analytical = linspace(0, max(We_DLims), resolution);
@@ -77,7 +78,15 @@ an_2 = plot(We_D_analytical, C3_y,  'k', 'LineWidth', 1);
 an_3 = plot(C2_x, B_analytical,     'k', 'LineWidth', 1);
 xlim([0 We_DLims])
 ylim([0 1])
-
+box on
+grid on
+xlabel('$We_D$', 'Interpreter', 'Latex')
+ylabel('$B$', 'Interpreter', 'Latex')
+title('$\Delta = 1$', 'Interpreter', 'Latex')
+legend(outcome_names_qian)
+if save_figs
+    saveas(gcf, '../../figures/qian_data.png')
+end
 
 figure()
 hold on
@@ -90,11 +99,19 @@ an_2 = plot(We_D_analytical, C3_y,  'k', 'LineWidth', 1);
 an_3 = plot(C2_x, B_analytical,     'k', 'LineWidth', 1);
 xlim([0 We_DLims])
 ylim([0 1])
-
+box on
+grid on
+xlabel('$We_D$', 'Interpreter', 'Latex')
+ylabel('$B$', 'Interpreter', 'Latex')
+title('$\Delta = 1$', 'Interpreter', 'Latex')
+legend(outcome_names_qian)
+if save_figs
+    saveas(gcf, '../../figures/estrade_data.png')
+end
 
 figure()
 hold on
-marker_color = [{'g'},{'r'},{'b'}];
+marker_color = [{'g'},{[0, 0.5, 1]},{[0.5, 0, 1]}];
 for i=1:3
     scatter(poo.delta1.(outcome_names_poo{i}).x, poo.delta1.(outcome_names_poo{i}).y, 40, [ marker_color{i}], 'filled')
 end
@@ -103,3 +120,12 @@ an_2 = plot(We_D_analytical, C3_y,  'k', 'LineWidth', 1);
 an_3 = plot(C2_x, B_analytical,     'k', 'LineWidth', 1);
 xlim([0 We_DLims])
 ylim([0 1])
+box on
+grid on
+xlabel('$We_D$', 'Interpreter', 'Latex')
+ylabel('$B$', 'Interpreter', 'Latex')
+title('$\Delta = 1$', 'Interpreter', 'Latex')
+legend(outcome_names_poo)
+if save_figs
+    saveas(gcf, '../../figures/poo_data.png')
+end
