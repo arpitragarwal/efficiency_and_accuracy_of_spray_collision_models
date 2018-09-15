@@ -67,8 +67,13 @@ if (check_error_estrade)
             error_struct.estrade.delta0p5.(outcome_names{i}).error;
         error_struct.estrade.delta0p5.all.num = error_struct.estrade.delta0p5.all.num + ...
             error_struct.estrade.delta0p5.(outcome_names{i}).num;
+
+        error_struct.estrade.all.(outcome_names{i}).error = error_struct.estrade.delta1.(outcome_names{i}).error + ...
+            error_struct.estrade.delta0p5.(outcome_names{i}).error;
+        error_struct.estrade.all.(outcome_names{i}).num = error_struct.estrade.delta1.(outcome_names{i}).num + ...
+            error_struct.estrade.delta0p5.(outcome_names{i}).num;
     end
-    
+
     error_struct.estrade.all.error = error_struct.estrade.delta0p5.all.error + ...
         error_struct.estrade.delta1.all.error;
     error_struct.estrade.all.num = error_struct.estrade.delta0p5.all.num + ...
@@ -149,11 +154,19 @@ if (check_error_poo)
         error_struct.poo.(delta_names{j}).all.error = 0;
         error_struct.poo.(delta_names{j}).all.num   = 0;
     end
+
     for i = 1:length(outcome_names)
+        error_struct.poo.all.(outcome_names{i}).error = 0;
+        error_struct.poo.all.(outcome_names{i}).num = 0;
         for j = 1:length(delta_names)
             error_struct.poo.(delta_names{j}).all.error = error_struct.poo.(delta_names{j}).all.error + ...
                 error_struct.poo.(delta_names{j}).(outcome_names{i}).error;
             error_struct.poo.(delta_names{j}).all.num = error_struct.poo.(delta_names{j}).all.num + ...
+                error_struct.poo.(delta_names{j}).(outcome_names{i}).num;
+
+            error_struct.poo.all.(outcome_names{i}).error = error_struct.poo.all.(outcome_names{i}).error + ...
+                error_struct.poo.(delta_names{j}).(outcome_names{i}).error;
+            error_struct.poo.all.(outcome_names{i}).num = error_struct.poo.all.(outcome_names{i}).error + ...
                 error_struct.poo.(delta_names{j}).(outcome_names{i}).num;
         end
     end
