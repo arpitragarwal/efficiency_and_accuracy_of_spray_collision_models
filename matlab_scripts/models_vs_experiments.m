@@ -36,9 +36,24 @@ ach_3 = plot(achuth.reflexive.x, achuth.reflexive.y, 'k--', 'LineWidth', 3);
 
 br_3 = plot(brazier.C3.x, brazier.C3.y, 'r--', 'LineWidth', 3);
 
+est_1 = plot(estrade.delta1.C1.x, estrade.delta1.C1.y, 'k-', 'LineWidth', 3);
+est_2 = plot(estrade.delta1.C2.x, estrade.delta1.C2.y, 'k-', 'LineWidth', 3);
+est_3 = plot(estrade.delta1.C3.x, estrade.delta1.C3.y, 'k-', 'LineWidth', 3);
+
+legend([an_1, ach_1, br_3, est_1], ...
+    'Munnanur, Reitz model', 'Munnanur, Reitz Fig.6', 'Brazier et al.', 'Estrade et al.', ...
+    'Location', 'East')
+
 xlim([0 We_DLims])
 ylim([0 1])
-
+box on
+grid on
+xlabel('$We_D$', 'Interpreter', 'Latex')
+ylabel('$B$', 'Interpreter', 'Latex')
+title('$\Delta = 1$', 'Interpreter', 'Latex')
+if save_figs
+    saveas(gcf, '../../figures/model_compilation.png')
+end
 %%
 close all; clc;
 [error_struct] = get_errors_wrt_all_datasets(We_D_analytical, B_analytical);

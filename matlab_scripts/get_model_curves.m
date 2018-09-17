@@ -14,7 +14,7 @@ for i=1:length(B_analytical)
     C1_x(i) = (delta*(1+delta^2)*(4*3.351 - 12))/(chi*(cos(asin(B_analytical(i))))^2);
     
     e_coal = min(1, (2.4*(gamma^3 - 2.4*gamma^2 + 2.7*gamma))/(We_D_analytical(i)));
-    C3_y(i) = sqrt(e_coal);
+    C3_y(i) = 1*sqrt(e_coal);
     
     zeta = 0.5*B_analytical(i)*(1+delta);
     eta_1 = 2*(1-zeta)^2*(1-zeta^2)^0.5 - 1;
