@@ -23,7 +23,7 @@ c.TickLabels = {'Bounce','Coal.','Reflex.','Stretch'};
 xlabel('We_D')
 ylabel('B')
 
-%% Model Curves (add more!)
+%% Model Curves
 figure()
 hold on
 an_1 = plot(C1_x, B_analytical, 'b', 'LineWidth', 2);

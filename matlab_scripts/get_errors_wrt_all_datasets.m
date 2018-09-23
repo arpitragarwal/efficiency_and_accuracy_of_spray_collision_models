@@ -150,6 +150,7 @@ if (check_error_poo)
     
     outcome_names = [{'coalescence'},{'reflexive'},{'stretching'}];
     delta_names = [{'delta0p5'},{'delta0p75'},{'delta1'}];
+    %delta_names = [{'delta0p5'},{'delta1'}];
     for j = 1:length(delta_names)
         error_struct.poo.(delta_names{j}).all.error = 0;
         error_struct.poo.(delta_names{j}).all.num   = 0;
