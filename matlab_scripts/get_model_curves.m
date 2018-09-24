@@ -27,7 +27,7 @@ for i=1:length(B_analytical)
     end
 end
 
-get_estrade_curves = true;
+get_estrade_curves = false;
 if get_estrade_curves
     [estrade, ~, ~, ~, ~] = get_experimental_csv_data();
 

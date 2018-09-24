@@ -2,7 +2,7 @@ clear; clc; close all;
 
 save_figs = false;
 We_DLims = 250;
-resolution = 200;
+resolution = 1000;
 We_D_analytical = linspace(0, max(We_DLims), resolution);
 B_analytical  = linspace(0, 1 , resolution);
 delta = 1;
@@ -13,16 +13,21 @@ delta = 1;
 
 [outcome_matrix] = get_populated_outcome_mat(We_D_analytical, B_analytical, delta);
 
+%%
 figure()
 contourf(We_grid, B_grid, outcome_matrix')
 colormap(parula(4));
-c = colorbar;
-c.Ticks = [1, 2, 3, 4];
-c.TickLabels = {'Bounce','Coal.','Reflex.','Stretch'};
-
+%c = colorbar;
+%c.Ticks = [1, 2, 3, 4];
+%c.TickLabels = {'Bounce','Coal.','Reflex.','Stretch'};
+text(150, 0.8, '\uparrow C_1','FontSize', 25)
+text(140, 0.3, '\downarrow C_2','FontSize', 25)
+text(30, 0.35, '\leftarrow C_3','FontSize', 25)
 xlabel('We_D')
 ylabel('B')
-
+if save_figs
+    saveas(gcf, '../../figures/regimes.png')
+end
 %% Model Curves
 figure()
 hold on
